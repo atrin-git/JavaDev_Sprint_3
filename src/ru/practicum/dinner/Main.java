@@ -67,8 +67,7 @@ public class Main {
         while (!nextItem.isEmpty()) {
             if (!dc.hasDishType(nextItem)) {
                 System.out.println("Тип \"" + nextItem + "\" не содержится в меню. Введите другой.");
-            }
-            else {
+            } else {
                 typesList.add(nextItem);
             }
 

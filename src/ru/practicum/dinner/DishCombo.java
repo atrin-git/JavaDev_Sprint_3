@@ -10,10 +10,11 @@ public class DishCombo {
     /**
      * Список блюд из комбо-набора
      */
-    private ArrayList<String> dishCombo;
+    private final ArrayList<String> dishCombo;
 
     /**
      * Создание комбо-набора
+     *
      * @param size Количество блюд в наборе
      */
     public DishCombo(int size) {
@@ -22,6 +23,7 @@ public class DishCombo {
 
     /**
      * Добавление блюда в набор
+     *
      * @param dish Наименование блюда
      */
     public void add(String dish) {

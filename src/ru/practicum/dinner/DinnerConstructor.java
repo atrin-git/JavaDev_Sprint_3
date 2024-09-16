@@ -10,41 +10,30 @@ public class DinnerConstructor {
     /**
      * Меню в формате {тип блюда => список блюд}
      */
-    private HashMap<String, ArrayList<String>> menu;
+    private final HashMap<String, ArrayList<String>> menu;
+    private final Random randomizer;
 
     /**
      * Создание объекта класса DinnerConstructor
      */
     public DinnerConstructor() {
         this.menu = new HashMap<>();
-
-        menu.put("Суп", new ArrayList<>(List.of("Щи", "Борщ", "Солянка", "Окрошка")));
-        menu.put("Напиток", new ArrayList<>(List.of("Сок", "Чай", "Кофе", "Какао")));
-        menu.put("Гарнир", new ArrayList<>(List.of("Гречка", "Пюре", "Макароны", "Рис")));
-        menu.put("Мясо", new ArrayList<>(List.of("Котлета", "Бифштекс", "Гуляш", "Бефстроганов")));
-        menu.put("Десерт", new ArrayList<>(List.of("Наполеон", "Павлова", "Чизкейк", "Медовик")));
+        this.randomizer = new Random();
     }
 
     /**
      * Добавление нового блюда в меню
+     *
      * @param type Тип блюда
      * @param name Наименование блюда
      */
     public void addNewDish(String type, String name) {
-        ArrayList<String> currentTypeDishesList;
+        ArrayList<String> currentTypeDishesList = menu.computeIfAbsent(type, k -> new ArrayList<>());
 
-        if (menu.containsKey(type)) {
-            currentTypeDishesList = menu.get(type);
-
-            if (currentTypeDishesList.contains(name)) {
-                System.out.println("Блюдо уже было добавлено ранее");
-                return;
-            }
+        if (currentTypeDishesList.contains(name)) {
+            System.out.println("Блюдо уже было добавлено ранее");
+            return;
         }
-        else {
-            currentTypeDishesList = new ArrayList<>();
-        }
-
         currentTypeDishesList.add(name);
         menu.put(type, currentTypeDishesList);
 
@@ -53,8 +42,9 @@ public class DinnerConstructor {
 
     /**
      * Генерация комбо-наборов
+     *
      * @param numberOfCombos Количество наборов
-     * @param typesList Типы блюд
+     * @param typesList      Типы блюд
      * @return Список комбо-наборов
      */
     public ArrayList<DishCombo> generateDishComboList(int numberOfCombos, ArrayList<String> typesList) {
@@ -69,6 +59,7 @@ public class DinnerConstructor {
 
     /**
      * Генерация одного комбо-набора
+     *
      * @param typesList Типы блюд
      * @return Комбо-набор
      */
@@ -84,12 +75,11 @@ public class DinnerConstructor {
 
     /**
      * Получение рандомного блюда выбранного типа
+     *
      * @param type Тип блюда
      * @return Блюдо
      */
     private String getRandomDishByType(String type) {
-        Random randomizer = new Random();
-
         ArrayList<String> dishesCurrentType = menu.get(type);
         int randomId = randomizer.nextInt(dishesCurrentType.size());
 
@@ -98,6 +88,7 @@ public class DinnerConstructor {
 
     /**
      * Печать списка комбо-наборов
+     *
      * @param dishComboList Список комбо-наборов
      */
     public void printDishComboList(ArrayList<DishCombo> dishComboList) {
@@ -109,6 +100,7 @@ public class DinnerConstructor {
 
     /**
      * Проверка на наличие типа блюд в меню
+     *
      * @param type Тип блюда
      * @return true - тип есть в меню, false - тип отсутствует
      */
